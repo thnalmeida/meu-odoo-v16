@@ -1,0 +1,38 @@
+
+services: #define containers que farão parte da aplicação
+  db: #container do BD
+    image: postgres:15 #contêiner do banco de dados PostgreSQL, sei que é versao 15 pois está na documentação
+    container_name: odoo16_db
+    environment: #Define o usuário, a senha e o nome do banco de dados que serão criados quando o contêiner iniciar.
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo_password 
+      - POSTGRES_DB=postgres
+    volumes: #local em que os dados serao salvos PERSISTENTEMENTE
+      - db_data:/var/lib/postgresql/data
+    restart: always #sempre que houver uma interrupção, reiniciar
+
+  odoo: #container da aplicação odoo
+    #image: odoo:16.0 #especifica qual imagem do odoo usar. aqui, versão 16
+    build: .
+    container_name: odoo16_teste
+    depends_on:
+      - db #diz ao Docker para só iniciar o Odoo depois que o serviço db estiver pronto
+    ports:
+      - "8069:8069" #expoe a porta do container para que possa acessá-la no navegador 
+    volumes: #Mapeia pastas do computador para o contêiner. 
+    #Isso é crucial para persistir dados e adicionar configurações.
+      - odoo_data:/var/lib/odoo
+      - ./addons:/mnt/extra-addons
+    environment: 
+    #Define variáveis de ambiente que o Odoo usará para se conectar ao banco de dados. 
+    #A senha deve ser a mesma no serviço odoo e db.
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo_password #Use a mesma senha definida no serviço 'db'
+    restart: always
+
+volumes:
+  db_data:
+  odoo_data:
+
+  #Declara os "volumes nomeados" (odoo-data, postgres-data). Eles são gerenciados pelo Docker e garantem que, mesmo que você remova os contêineres, os dados (como os arquivos do Odoo e os dados do banco) não sejam perdidos.
