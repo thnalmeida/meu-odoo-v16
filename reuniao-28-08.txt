@@ -1,0 +1,24 @@
+- Atribuição: deploy do odoo v16 com configurações e volumes persistentes; 
+- Docker hub 
+- Docker-compose 
+
+- Log de erro 1: TypeError: get_response() takes from 1 to 2 positional arguments but 3 were given 2 0.005 0.037 
+                  WERKZEUG
+- requirements > Docker file
+
+- Log de erro 2: TypeError: get_response() takes from 1 to 2 positional arguments but 3 were given 2 0.004 0.051
+
+
+odoo16_teste  |   File "/usr/lib/python3/dist-packages/jinja2/defaults.py", line 3, in <module>
+
+odoo16_teste  |     from .filters import FILTERS as DEFAULT_FILTERS  # noqa: F401
+
+odoo16_teste  |   File "/usr/lib/python3/dist-packages/jinja2/filters.py", line 21, in <module>
+
+odoo16_teste  |     from markupsafe import soft_unicode
+
+odoo16_teste  | ImportError: cannot import name 'soft_unicode' from 'markupsafe' (/var/lib/odoo/.local/lib/python3.9/site-packages/markupsafe/__init__.py)
+
+- Ajustes de versão 
+
+
