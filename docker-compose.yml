@@ -12,7 +12,7 @@ services: #define containers que farão parte da aplicação
     restart: always #sempre que houver uma interrupção, reiniciar
 
   odoo: #container da aplicação odoo
-    build: . #especifica qual imagem do odoo usar. aqui, versão 16
+    build: . 
     container_name: odoo16_teste
     depends_on:
       - db #diz ao Docker para só iniciar o Odoo depois que o serviço db estiver pronto
