@@ -1,0 +1,20 @@
+name: Construção da imagem docker
+
+on: 
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout 
+    - uses: actions/checkout@v4
+    
+    - name: Construção da imagem docker
+      run: docker compose build 
