@@ -17,4 +17,4 @@ jobs:
     - uses: actions/checkout@v4
     
     - name: Construção da imagem docker
-      run: docker compose build odoo
+    - run: docker compose build odoo
