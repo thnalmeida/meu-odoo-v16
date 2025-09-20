@@ -4,9 +4,6 @@ on:
   push:
     branches: [ "main" ]
 
-env:
-    IMAGE_NAME: ghcr.io/${{ to_lower(github.repository) }}
-
 jobs:
   
   build-and-publish:
@@ -20,6 +17,9 @@ jobs:
     steps:
     - name: Checkout 
       uses: actions/checkout@v4
+
+    - name: Set image name to lowercase
+      run: echo "IMAGE_NAME=ghcr.io/$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
     
     - name: Construção da imagem docker
       run: docker compose build odoo
