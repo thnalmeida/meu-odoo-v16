@@ -5,8 +5,8 @@ on:
     branches: [ "main" ]
 
 env:
-    IMAGE_NAME: ghcr.io/${{ tolower(github.repository) }}
-    
+    IMAGE_NAME: ghcr.io/${{ to_lower(github.repository) }}
+
 jobs:
   
   build-and-publish:
