@@ -3,14 +3,19 @@ name: Construção da imagem docker
 on: 
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
+env:
+    IMAGE_NAME: ghcr.io/${{ tolower(github.repository) }}
+    
 jobs:
-
-  build:
+  
+  build-and-publish:
 
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read      
+      packages: write
 
     steps:
     - name: Checkout 
@@ -18,3 +23,16 @@ jobs:
     
     - name: Construção da imagem docker
       run: docker compose build odoo
+
+    - name: Login no GHCR
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Adicionar tag correta
+      run: docker tag odoo:latest ${{ env.IMAGE_NAME }}:latest
+
+    - name: Envia a imagem para o ghcr
+      run: docker push ${{ env.IMAGE_NAME}}:latest
