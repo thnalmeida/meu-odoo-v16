@@ -14,7 +14,7 @@ services: #define containers que farão parte da aplicação
   odoo: #container da aplicação odoo
     build: . 
     image: odoo:latest
-    container_name: odoo16_teste
+    container_name: odoo16_teste1
     depends_on:
       - db #diz ao Docker para só iniciar o Odoo depois que o serviço db estiver pronto
     ports:
