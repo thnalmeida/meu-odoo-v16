@@ -34,5 +34,5 @@ jobs:
     - name: Adicionar tag correta
       run: docker tag odoo:latest ${{ env.IMAGE_NAME }}:latest
 
-    - name: Envia a imagem para o ghcr
-      run: docker push ${{ env.IMAGE_NAME}}:latest
+    - name: Publicar a Imagem no GHCR
+      run: docker push --all-tags ghcr.io/$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')
