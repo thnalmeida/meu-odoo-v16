@@ -25,8 +25,11 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     
-    - name: Adicionar tag correta
-      run: docker tag odoo:latest ${{ env.IMAGE_NAME }}:latest
+    - name: Extrair tags para a Imagem
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ghcr.io/${{ github.repository }}
     
     - name: Construção da imagem docker
       run: docker compose build odoo
