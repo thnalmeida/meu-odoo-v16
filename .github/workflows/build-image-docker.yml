@@ -30,9 +30,11 @@ jobs:
       uses: docker/metadata-action@v5
       with:
         images: ghcr.io/${{ github.repository }}
-    
-    - name: Construção da imagem docker
-      run: docker compose build odoo
-    
-    - name: Publicar a Imagem no GHCR
-      run: docker push --all-tags ghcr.io/$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')
+
+    - name: Construir e Publicar a Imagem Docker
+      uses: docker/build-push-action@v5
+      with:
+        context: . 
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
